@@ -2,7 +2,6 @@
 Author: Evan Ward <br>
 **BLUF:** A micro web app to make generating, refining, and sharing random variables as easy as possible. <br>
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/19596e5d-cf00-4bcb-8b0d-efeaf0fc7682/deploy-status)](https://app.netlify.com/sites/probabilitydev/deploys) <br>
 
 Feel free to contact me at evanward97 at gmail if you have any advice or want to help out!
 
