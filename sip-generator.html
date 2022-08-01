@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> <!-- TODO: add id's and names to inputs -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stochastic Information Packet Generator</title>
+    <meta name="description"
+        content="A tool to help people generate and share the random variables that they have in mind.">
+    <meta name="author" content="Evan Ward">
+    <meta name="keywords"
+        content="probability, random variable, distribution, guesstimate, SIP, stochastic, information, packet">
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+
+
+    </style>
+</head>
+<body onload=main()>
+    <form id="new-variable">
+        <h2><b>SIPs</b>: Stochastic Information Packets</h2>
+        <div>
+            <p><i>Based off the <a
+                        href="https://static1.squarespace.com/static/5a4f82d7a8b2b04080732f87/t/5ec6fd154b15d22b24cf0c78/1590099225328/SIP%2BStandard%2BVersion%2B2.1.1.pdf">open
+                        SIP Standard Specification</a> from <a
+                        href="https://www.probabilitymanagement.org/standard">Probability Management</a>.</i></p>
+
+
+            <a class="btn btn-primary" data-toggle="collapse" href="#moreInfo" role="button"">+ More Info</a>
+     <div class=" collapse" id="moreInfo">
+                <div class="card card-body">
+                    <blockquote class="blockquote">Any arbitrary probability distribution can be approximately
+                        represented by its Monte Carlo sample. When a consistent ordering of the Monte Carlo samples is
+                        maintained along the common Run index, the representation also captures complex correlation
+                        relationships relative to other variables. <a
+                            href="http://ProbabilityManagement.org">Probability Management</a> advocates a corporate
+                        framework in which organizations maintain libraries of official distributions for key uncertain
+                        quantities, which can be exchanged between model builders so that all models rely on common
+                        assumptions. Each univariate Monte Carlo sample is collected into a unit called a Stochastic
+                        Information Packet (SIP), which is a textual XML snippet containing a compressed representation
+                        of the Monte Carlo sample. <footer class="blockquote-footer"><cite><a
+                                    href="http://wiki.analytica.com/Stochastic_Information_Packets_(SIPs)">Analytica</a></cite>
+                        </footer>
+                    </blockquote>
+                </div>
+        </div>
+        </div>
+        <br>
+
+        <table>
+            <div class="sip-item">
+                <tr>
+                    <td><label for="name">A text string identifying the SIP, usually unique in context.</label> </td>
+                    <td><input type="text" required></td>
+                <tr>
+            </div>
+            <div class="sip-item">
+                <tr>
+                    <td><label for="count">The number of samples</label> </td>
+                    <td><input type="number" id="count" name="count" value="50" required></td>
+                </tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="tmax">The maximum trial index required if the SIP uses a sarse index.</label> </td>
+                    <td><input type="text"></td>
+                </tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="type"></label> </td>
+                    <td><input type="text" required></td>
+                </tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="ver"></label> </td>
+                    <td><input type="text" required></td>
+                <tr>
+            </div>
+
+            <!-- common optional attributes -->
+            <div class="sip-item">
+                <tr>
+                    <td><label for="about">A description of the SIP or SLURP. Could be a URL.</label> </td>
+                    <td><input type="text"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="avg">The average or mean of the SIP sample values before they’re encoded into the
+                            string.</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="csvr">The number of digits to the right of the decimal for CSV conversion</label></td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="copyright">Any copyright claim.</label> </td>
+                    <td><input type="text"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="dataver">A number or date indicating the currency of the data in a SIP or
+                            SLURP.</label>
+                    </td>
+                    <td><input type="text"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="dims">The dimensions of a multidimensional SIP.</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="max">The SIP maximum value.</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="min">The SIP minimum value</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="offset">An offset facor to be applied to a SIP encoded value to get the sample
+                            value.
+                            The 'b' in ax+b. Default is 0.</label> </td>
+                    <td><input type="number" value='50'></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="origin">An arbitrary text string should say something about the institution or
+                            project
+                            that produced a SIP or SLURP.</label> </td>
+                    <td><input type="text"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="provenance">Information about the source and authority of the data. Could be a
+                            URL.</label></td>
+                    <td><input type="text"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="scale">A scale factor to be applied to a SIP encoded value to get the sample value.
+                            The
+                            ‘a’ in ax+b. Default is 1.</label> </td>
+                    <td><input type="number" value='1'></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="units">A text string for the SIP data measurement units e.g. “Dollars”.</label>
+                    </td>
+                    <td><input type="text"></td>
+                <tr>
+            </div>
+        </table>
+
+            <!-- Optional Graph Data -->
+            <h3>Optional Graph Data</h3>
+            <table>
+            <div class="sip-item">
+                <tr>
+                    <td><label for="hbin">The bin width of a histogram of the SIP.</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="hmin">The minimum value in a histogram of the SIP.</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="hnum">The number of bins in a histogram of the SIP.</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="hvalN">The value in the Nth bin in a histogram of the SIP.</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="Ptile">The (P/100) percentile value</label> </td>
+                    <td><input type="number"></td>
+                <tr>
+            </div>
+            </table>
+            <br>
+            <h2><b>SLURPs</b>: Stochastic Library Unit with Relationships Preserved</h2>
+            <b>A collection of SIPs can comprise a SLURP if the statistical relationships between SIPs are preserved.</b>
+            <table>
+            <div class="sip-item">
+                <tr>
+                    <td><label for="SLURP_name">Can be any string, should be a unique identifier in context.</label>
+                    </td>
+                    <td><input type="text"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="coherent">Myst be either 'true' or 'false'. If false, the coherence of the included
+                            SIPs
+                            is not assured.</label> </td>
+                    <td><input type="checkbox"></td>
+                <tr>
+            </div>
+
+            <div class="sip-item">
+                <tr>
+                    <td><label for="count">If there’s a “count” attribute, it should refer to the number of SIPs in the
+                            SLURP.</label> </td>
+                    <td><input type="text"></td>
+                <tr>
+            </div>
+        </table>
+        <br>
+        <button class="btn btn-primary" type="submit"></button>
+    </form>
+    <script type="text/javascript">
+        /* converts the user's form inputs into an XML-SIP */
+        function main() {
+            const SIP = {
+                name: document.getElementById('name').valuecount: document.getElementById('number')
+                    .valuetmax: document.getElementById('').valuetype: document.getElementById('')
+                    .valuever: document.getElementById('').valueabout: document.getElementById('')
+                    .valueavg: document.getElementById('').valuecsvr: document.getElementById('')
+                    .valuecopyright: document.getElementById('').valuedataver: document.getElementById('')
+                    .valuedims: document.getElementById('').valuemax: document.getElementById('').valuemin: document
+                    .getElementById('').valueoffest: document.getElementById('').valueorigin: document
+                    .getElementById('').valueprovenance: document.getElementById('').valuescale: document
+                    .getElementById('').valueunits: document.getElementById('')
+                    .value //optional graph datahbin: document.getElementById('').valuehnum: document.getElementById('').valuehvalN: document.getElementById('').valuePtile: document.getElementById('').value// optional SLURP dataSLURP_name: document.getElementById('').valuecoherent: document.getElementById('').valuecount: document.getElementById('').value
+            }
+            SIP_JSON = JSON.stringify(SIP)
+            console.log(SIP_JSON)
+            // check out https://www.npmjs.com/package/xml-js
+
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
+
+
+</body>
+
+</html>

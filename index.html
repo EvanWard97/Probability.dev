@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Random Variable Generator</title>
+    <meta name="description"
+        content="A tool to help people generate and share the subtle random variables that they have in mind.">
+    <meta name="author" content="Evan Ward">
+    <meta name="keywords" content="probability, random variable, distribution, guesstimate">
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149942336-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-149942336-2');
+    </script>
+
+</head>
+
+<body onload=main()>
+    <header>
+        <div style="width:80rem; margin:auto">
+            <a href="/">
+                <h2 class="titleLogo" id="logo" style="float:left; overflow:auto">
+                    <img src="img/logo.png" alt="logo" id="headerImg" class="mobileCenter"
+                        style="float:left; max-width: 12%; height: auto; margin-top: .5rem; margin-left: .3rem;">
+                    &nbspRandVarGen <br>
+                    <div style="color:black; margin-top:-2rem">
+                        <small><small><small><i>&nbsp&nbspRandom Variable Generator</i></small></small></small>
+                    </div>
+                </h2>
+            </a>
+            <div class="mobileHeader">
+                <div style="margin-top: .1rem; text-align: right;">
+                    <b>
+                        Made by <a href="https://www.evanward.org/">Evan Ward</a><br>
+                        <a href="#shareFeedback">Share feedback</a><br>
+                        <a href="https://github.com/EvanWard97/Probability.dev">Github</a>
+                    </b>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section style="margin-top:-1rem">
+            <div style=" margin-top: .8rem;  margin-bottom: -1.5rem">
+                <h4><small>Use cases:</small></h4>
+                <ul>
+                    <li>Quickly generate and share the subjective probability distributions you have in mind—no math
+                        functions required.</li>
+                    <li>Generate <b>precise</b> inputs that closely match your intuitions for Monte Carlo simulation
+                        software like <a href="https://www.getguesstimate.com">Guesstimate</a>.</li>
+                    <li>Estimate a point estimate better by drawing your intuition of its probability distribution and
+                        using the expected value.</li>
+                </ul>
+            </div>
+            <hr>
+            <form id="new-variable">
+                <fieldset style="border-radius: 4px;">
+                    <legend>Generate a Variable from a Confidence Interval:</legend>
+
+                    <div class="row" style="margin-top: 0rem; margin: 0;text-align: center;justify-content: center;">
+                        &nbsp&nbsp
+
+                        <div>
+                            <label for="leftVal" style="text-align:center">Left value</label>
+                            <input style="font-size: 2.3rem; text-align:center; vertical-align:top; width: 12rem;"
+                                type="number" id="leftVal" name="leftVal" value="0" placeholder="e.g. '70'" required>
+                        </div>
+
+                        &nbsp&nbsp
+
+                        <div>
+                            <label for="rightVal" style="text-align:center">Right value</label>
+                            <input style="font-size: 2.3rem; text-align:center; vertical-align:top; width: 12rem;"
+                                type="number" id="rightVal" name="rightVal" value="100" placeholder="e.g. '130'"
+                                required>
+                        </div>
+
+                        &nbsp&nbsp
+
+                        <div>
+                            <div style="text-align:center; vertical-align:top;">
+                                <label for="confidence" style="overflow-wrap: normal; white-space: nowrap;">Confidence
+                                    level</label>
+                                <input type="radio" name="confidenceRadio" value=".8">.8 &nbsp
+                                <input type="radio" name="confidenceRadio" value=".9">.9 &nbsp <br>
+                                <input type="radio" name="confidenceRadio" value=".95" checked="true">.95 &nbsp
+                                <input type="radio" name="confidenceRadio" value=".99">.99 &nbsp
+                                <input type="radio" name="confidenceRadio" value="1.0">1.0 &nbsp
+                                <!--<input type="radio" name="confidenceRadio" value="custom">Custom-->
+                            </div>
+                        </div>
+
+                        &nbsp&nbsp&nbsp&nbsp
+
+                        <!--<div>
+                            <label for="customConfidence">Custom confidence</label>
+                            <input style="font-size: 2rem" type="text" id="customConfidence" name="customConfidence" value=".95" placeholder="e.g. '.85'">
+                        </div>-->
+
+                        <div style="text-align:center; vertical-align:top;" hidden>
+                            <label for="noZero"><a href="" title="Should your distribution strictly remain above zero?"
+                                    style="color: inherit;">Nonzero?</a></label><br>
+                            <div style="text-align:center; margin-top: -1.1rem"><input type="checkbox" id="noZero"
+                                    name="noZero"></div>
+                        </div>
+
+                        &nbsp&nbsp
+
+                        <!--<label for="xValsInput">or enter a list of comma seperated numbers.</label>
+                        <input type="text" name="xValsInput">-->
+
+                        <div style="margin-bottom: 1rem">
+                            <br><br>
+                            <button type="button" class="mobileCenter" id="genVarBtn"
+                                style="margin-top: -1.1rem;">Generate Initial Variable</button>
+                            <small><i>
+                                    <p id="variable generated" style="margin: auto; text-align: center;"></p>
+                                </i></small>
+                        </div>
+
+                        &nbsp&nbsp
+                    </div>
+
+                    <hr>
+                    <div class="row" style="margin-top: 0rem; margin: 0;text-align: center;justify-content: center;">
+
+                        <div>
+                            <br>
+                            <small><i>Optional: </i></small>
+                        </div>
+                        &nbsp&nbsp
+
+                        <div>
+                            <label for="title" style="text-align:center">Title</label>
+                            <input style="font-size: 1.3rem;text-align:center; vertical-align:top;" type="text"
+                                size="100" id="title" name="title" value='' placeholder="'Estimate of X'">
+                        </div>
+                        &nbsp&nbsp
+
+                        <div>
+                            <label for="description" style="text-align:center">Description</label>
+                            <input style="font-size: 1.3rem; text-align:center; vertical-align:top;" type="text"
+                                size="240" id="description" name="description" value=''
+                                placeholder="'I specifically mean X.a, not X.b'">
+                        </div>
+
+                        &nbsp&nbsp
+
+                        <div>
+                            <label for="xUnits" style="text-align:center">X units</label>
+                            <input style="font-size: 1.3rem; text-align:center; vertical-align:top;" type="text"
+                                size="100" id="xUnits" name="xUnits" value='' placeholder="'Dollars'">
+                        </div>
+
+                        &nbsp&nbsp
+                        <div>
+                            <label for="author" style="text-align:center">Author</label>
+                            <input style="font-size: 1.3rem; text-align:center; vertical-align:top;" type="text"
+                                size="100" id="author" name="author" value='' placeholder="'John S.'">
+                        </div>
+
+                        &nbsp&nbsp
+                        <div>
+                            <label for="contactInfo" style="text-align:center">Contact Info</label>
+                            <input style="font-size: 1.3rem; text-align:center; vertical-align:top;" type="text"
+                                size="100" id="contactInfo" name="contactInfo" value='' placeholder="'@johnsmith'">
+                        </div>
+
+                        &nbsp&nbsp
+                        <div style="margin-bottom: 1rem">
+                            <br>
+                            <br>
+                            <button type="button" class="mobileCenter" id="addGraphLabels"
+                                style="margin-top: -1.1rem;">Add Labels</button>
+                            <small><i>
+                                    <p id="labelsAdded" style="margin: auto; text-align: center;"></p>
+                                </i></small>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+            <div style="padding-top:3rem">
+                <div class="row">
+                    <div>
+                        <p class="subtitle">Your Random Variable</p>
+                    </div>
+                    <div style="margin-left:auto; margin-right:0;">
+                        <i>Draw on the graph to update it. <br>
+                            Additional commands: <br>
+                            w:&#x2190 &nbsp&nbsp&nbsp&nbsp a:&#x2191 &nbsp&nbsp&nbsp&nbsp s:&#x2193 &nbsp&nbsp&nbsp&nbsp
+                            d:&#x2192 &nbsp&nbsp&nbsp&nbsp <br>
+                            <!--z:&#x27F3. <br>-->
+                            <!--e: extend x-values right
+                        q: extend x-values left-->
+                        </i>
+                    </div>
+                </div>
+                <div id="canvasContainer">
+                    <canvas width="1200" height="700" id="canvasID">An HTML canvas is supposesed to be here :(. Perhaps
+                        Javascript is disabled?</canvas>
+                </div>
+            </div>
+
+            <br>
+            <div>
+                <p class="subtitle">Export Variable</p>
+                <div class="row">
+                    <div style="margin:auto">
+                        <div class="row">
+                            &nbsp&nbsp
+
+                            <div style="width: 12rem; text-align: bottom;margin:auto;" aria-required="true">
+                                <label for="nValues" style="text-align:center"><small>Number of values to be
+                                        sampled</small></label>
+                                <input type="number" id="n" name="n" value="100"
+                                    style="font-size: 3rem; text-align:center" min="0" max="50000" step="100">
+                            </div>
+
+                            &nbsp&nbsp
+
+                            <div style="width: 8rem; text-align: bottom;margin:auto;" aria-required="true">
+                                <label for="roundPrecision" style="text-align:center"><small>Rounding
+                                        precision</small></label>
+                                <input type="number" id="rounder" name="rounder" value="2"
+                                    style="font-size: 3rem; text-align:center;" min="0" max="5" step="1">
+                            </div>
+
+                            &nbsp&nbsp
+
+                            <div style="margin:auto; margin-bottom: 0rem">
+                                <form>
+                                    <div class="row">
+                                        <p style="margin: auto; text-align: center; color:white">|</p>
+                                        <p style="margin:auto;text-align: center" id="ExportsEV"></p>
+                                        <p style="margin: auto; text-align: center" id="ExportsSD"> </p>
+                                        <p style="margin: auto; text-align: center" id=exportStatus> </p>
+                                    </div>
+                                    <div>
+                                        <textarea id="valuesToPaste"
+                                            placeholder="Values sampled from the distribution.."></textarea>
+                                        <div>
+                                            <button onclick="removeFlashing()" type="button" id="export"
+                                                class="export.buttons flashing_effect"
+                                                style="text-align:left">Export</button>&nbsp&nbsp
+
+                                            <button type="button" id="copyValues" class="export.buttons">Copy
+                                                Values</button>&nbsp&nbsp
+
+                                            <button type="button" id="csvSave" class="export.buttons">Download
+                                                CSV</button>&nbsp&nbsp
+
+                                            <button type="button" id="pngSave" class="export.buttons"
+                                                style="text-align:right">Save as PNG</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            &nbsp&nbsp
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!--<form>
+                <fieldset style="border-radius: 4px;">
+                    <legend>Save to unique URL</legend>
+                    <p>Unique urls are in the form <code>probability.dev/{author}/{title}/{date}</code></p>
+                    
+                    <div class="row">
+                        &nbsp&nbsp
+                        <div>
+                            <label for="expiryDate" style="text-align:center">Variable expiration date</label>
+                            <input type="date" id="expiryDate" name="expiryDate" max="2021-06-14T00:00" style="font-size: 2rem; text-align:center;">
+                        </div>
+                        &nbsp&nbsp
+                        <div>
+                            <label for="deletePassword" style="text-align:center">Passcode to delete your variable early.</label>
+                            <input type="text" size="100" id="deletePassword" name="deletePassword" style="font-size: 1.5rem; text-align:center;">
+                        </div>
+                        &nbsp&nbsp
+                        <div>
+                            <button type="button" id="postToURL" class="export.buttons" style="text-align:left">Save to URL</button>&nbsp&nbsp
+                        </div>
+                        &nbsp
+                        <p style="margin:auto;text-align: center" id="postStatus"></p>
+                        <div>
+                            <p id="newURL"></p>
+                        </div>
+                        <div>
+                            <button type="button" id="copyURL" class="export.buttons">Copy URL</button>&nbsp&nbsp
+                        </div>
+
+                    </div>
+
+                </fieldset>
+            </form>
+        -->
+
+            <form name="feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <fieldset style="border-radius: 4px;">
+                    <legend>Leave feedback</legend>
+                    <div class="row">
+
+                        <div hidden aria-hidden="true">
+                            <label>
+                                Don’t fill this out if you're human:
+                                <input name="bot-field" />
+                            </label>
+                        </div>
+
+                        <div style="margin:auto;">
+                            What are your thoughts about this? &nbsp&nbsp<small><i>All fields are
+                                    optional.</i><br></small>
+                            <div class="row">
+                                <div class="message0">
+                                    <label><textarea type="text" name="message" id="shareFeedback"
+                                            placeholder="message.."></textarea></label>
+                                </div>
+                                &nbsp&nbsp
+                                <div>
+                                    <label><input type="text" name="name" placeholder="name.." /></label>
+                                </div>
+                                &nbsp&nbsp
+                                <div>
+                                    <label><input type="text" name="contactInfo" placeholder="contact info.." /></label>
+                                </div>
+                                &nbsp&nbsp
+                                <button style="" type="submit">Send</button>
+                            </div>
+                            <!--<div>
+                                    Do you expect to use this again?
+                                    <select name="use[]" multiple>
+                                        <option value="probably never">probably never</option>
+                                        <option value="maybe once a month">maybe once a month</option>
+                                        <option value="once a week or more, until something better comes along">once a week or more, until something better comes along</option>
+                                    </select>
+                                </div>-->
+
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+        </section>
+    </main>
+    <footer>
+        <div style="margin: auto; text-align: center;">
+            &copy <a href="https://www.evanward.org/">Evan Ward 2019</a> |
+            <a href="https://www.evanward.org/contact">share feedback</a> |
+            <a href="https://github.com/EvanWard97/Probability.dev">Github</a>
+        </div>
+    </footer>
+    <script>
+        function removeFlashing() {
+            let element = document.getElementById("export");
+            element.classList.remove("flashing_effect");
+        }
+    </script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <!--<script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>-->
+
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
+
+<!--<label for="variable-name">Name of Variable to Estimate</label>
+<input type="text" class="form-control" id="variable-name" placeholder="Name the variable you want to estimate e.g. '3Q Profits'.">
+<label for="variable-description">Description of Variable</label>
+<input type="text" class="form-control" id="variable-description" placeholder="Describe the variable you want to estimate e.g. 'Total profits for Smith Industries for Quarter 3.'">
+<label for="variable-bounded">Should the variable be bounded?</label>
+<select class="form-control" id="variable-bounded?">
+    <option value="unbounded">No, unbounded (3 standard deviation max)</option>
+    <option value="bounded">Yes, bounded between two numbers (e.g. 0 and 1 for credences)</option>
+</select>
+<label for="variable-time-limit">Expiration Date of Variable</label>
+<label for="variable-time-limit"><small>Variable will be deleted after this date unless you otherwise delete it beforehand.</small></label>
+<input type="date" class="form-control" id="variable-expiration-date" placeholder="Your variable will be deleted by this date." max="2020-12-31">
+</div>
+-->
